@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "322605028525",
+    "project_id": "biogas-3eac2",
+    "storage_bucket": "biogas-3eac2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:322605028525:android:2fbcb292c9225807446224",
+        "android_client_info": {
+          "package_name": "com.example.biogas_umar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5DMLEcLUn7AvfeATXUETgm3wZQJXPFVQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
