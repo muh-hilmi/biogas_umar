@@ -33,9 +33,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: "BioSmart Monitoring",
             initialRoute: FirebaseAuth.instance.currentUser != null
-                ? FirebaseAuth.instance.currentUser!.emailVerified == true
-                    ? Routes.HOME
-                    : Routes.SIGN_IN
+                ? Routes.HOME
                 : Routes.WELCOME,
             getPages: AppPages.routes,
           );
