@@ -28,7 +28,7 @@ class SignUpController extends GetxController {
         );
         if (userCredential.user != null) {
           String uid = userCredential.user!.uid;
-          firestore.collection("user").doc(uid).set({
+          firestore.collection("users").doc(uid).set({
             "nama": namaSignupC.text,
             "email": emailSignupC.text,
             "telepon": telponSignupC.text,

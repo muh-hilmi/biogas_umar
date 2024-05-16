@@ -1,7 +1,6 @@
+import 'package:biogas_umar/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import '../controllers/home_controller.dart';
@@ -28,7 +27,7 @@ class HomeView extends GetView<HomeController> {
               color: Color(0xff0077C0),
             ),
             onPressed: () {
-              // Aksi yang ingin Anda lakukan ketika ikon ditekan
+              Get.toNamed(Routes.PROFILE);
             },
           ),
         ],
@@ -91,7 +90,7 @@ class HomeView extends GetView<HomeController> {
                             ),
                             const SizedBox(height: 5),
                             Text(
-                              '$i',
+                              i,
                               style: GoogleFonts.inter(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
