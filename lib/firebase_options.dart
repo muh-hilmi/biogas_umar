@@ -52,6 +52,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '322605028525',
     projectId: 'biogas-3eac2',
     authDomain: 'biogas-3eac2.firebaseapp.com',
+    databaseURL: 'https://biogas-3eac2-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'biogas-3eac2.appspot.com',
     measurementId: 'G-TD7T6R8GWK',
   );
@@ -61,6 +62,7 @@ class DefaultFirebaseOptions {
     appId: '1:322605028525:android:2fbcb292c9225807446224',
     messagingSenderId: '322605028525',
     projectId: 'biogas-3eac2',
+    databaseURL: 'https://biogas-3eac2-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'biogas-3eac2.appspot.com',
   );
 
@@ -69,6 +71,7 @@ class DefaultFirebaseOptions {
     appId: '1:322605028525:ios:dac5b7e83fc0c959446224',
     messagingSenderId: '322605028525',
     projectId: 'biogas-3eac2',
+    databaseURL: 'https://biogas-3eac2-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'biogas-3eac2.appspot.com',
     iosBundleId: 'com.example.biogasUmar',
   );
