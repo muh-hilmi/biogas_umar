@@ -82,21 +82,22 @@ class HomeView extends GetView<HomeController> {
                                     children: [
                                       Text(
                                         i == 'Temp'
-                                            ? '${controller.suhu.toStringAsFixed(1)} °C'
+                                            ? '${controller.suhuSensor.toStringAsFixed(1)} °C'
                                             : i == 'Pressure'
-                                                ? '${controller.tekanan.toStringAsFixed(2)} KPA'
+                                                ? '${controller.tekananSensor.toStringAsFixed(2)} KPA'
                                                 : i == 'pH'
-                                                    ? controller.pH
+                                                    ? controller.phSensor
                                                         .toStringAsFixed(2)
                                                     : i == 'Gas'
-                                                        ? controller.gas
+                                                        ? controller.gasSensor
                                                             .toStringAsFixed(2)
                                                         : "?",
                                         style: GoogleFonts.inter(
                                           color: const Color(0xff0077C0),
-                                          fontSize: 16,
+                                          fontSize: 14,
                                           fontWeight: FontWeight.w600,
                                         ),
+                                        textAlign: TextAlign.center,
                                       ),
                                       const SizedBox(height: 5),
                                       Text(
@@ -120,94 +121,81 @@ class HomeView extends GetView<HomeController> {
                       color: const Color(0xff0077C0).withOpacity(0.3)),
                   const SizedBox(height: 10),
                   Text(
-                    'History',
+                    'History on this day',
                     style: GoogleFonts.inter(
-                      fontSize: 24,
+                      fontSize: 20,
                       color: const Color(0xff0077C0),
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  const DynamicLineAreaChart(
-                    title: 'Temperature',
-                    yAxisTitle: 'Temperature (in °C)',
-                    chartData: [
-                      {'day': '00.00', 'value': 26.0},
-                      {'day': '01.00', 'value': 26.0},
-                      {'day': '03.00', 'value': 27.0},
-                      {'day': '04.00', 'value': 26.5},
-                      {'day': '05.00', 'value': 28.0},
-                      {'day': '06.00', 'value': 27.5},
-                      {'day': '07.00', 'value': 26.0},
-                      {'day': '08.00', 'value': 26.0},
-                      {'day': '09.00', 'value': 26.0},
-                      {'day': '10.00', 'value': 26.0},
-                      {'day': '11.00', 'value': 26.0},
-                      {'day': '12.00', 'value': 26.0},
-                      {'day': '13.00', 'value': 26.0},
-                      {'day': '14.00', 'value': 26.0},
-                      {'day': '15.00', 'value': 26.0},
-                      {'day': '16.00', 'value': 26.0},
-                      {'day': '17.00', 'value': 26.0},
-                      {'day': '18.00', 'value': 26.0},
-                      {'day': '19.00', 'value': 26.0},
-                      {'day': '20.00', 'value': 26.0},
-                      {'day': '21.00', 'value': 26.0},
-                      {'day': '22.00', 'value': 26.0},
-                      {'day': '23.00', 'value': 26.0},
-                    ],
-                  ),
-                  const DynamicLineAreaChart(
-                    title: 'Temperature',
-                    yAxisTitle: 'Temperature (in °C)',
-                    chartData: [
-                      {'day': 'Mon', 'value': 25.0},
-                      {'day': 'Tue', 'value': 26.0},
-                      {'day': 'Wed', 'value': 27.0},
-                      {'day': 'Thu', 'value': 26.5},
-                      {'day': 'Fri', 'value': 28.0},
-                      {'day': 'Sat', 'value': 27.5},
-                      {'day': 'Sun', 'value': 26.0},
-                    ],
-                  ),
-                  const DynamicLineAreaChart(
-                    title: 'Pressure',
-                    yAxisTitle: 'Pressure (in KPA)',
-                    chartData: [
-                      {'day': 'Mon', 'value': 25.0},
-                      {'day': 'Tue', 'value': 26.0},
-                      {'day': 'Wed', 'value': 27.0},
-                      {'day': 'Thu', 'value': 26.5},
-                      {'day': 'Fri', 'value': 28.0},
-                      {'day': 'Sat', 'value': 27.5},
-                      {'day': 'Sun', 'value': 26.0},
-                    ],
-                  ),
-                  const DynamicLineAreaChart(
-                    title: 'pH',
-                    yAxisTitle: 'pH',
-                    chartData: [
-                      {'day': 'Mon', 'value': 25.0},
-                      {'day': 'Tue', 'value': 26.0},
-                      {'day': 'Wed', 'value': 27.0},
-                      {'day': 'Thu', 'value': 26.5},
-                      {'day': 'Fri', 'value': 28.0},
-                      {'day': 'Sat', 'value': 27.5},
-                      {'day': 'Sun', 'value': 26.0},
-                    ],
-                  ),
-                  const DynamicLineAreaChart(
-                    title: 'Gas',
-                    yAxisTitle: 'Gas',
-                    chartData: [
-                      {'day': 'Mon', 'value': 25.0},
-                      {'day': 'Tue', 'value': 26.0},
-                      {'day': 'Wed', 'value': 27.0},
-                      {'day': 'Thu', 'value': 26.5},
-                      {'day': 'Fri', 'value': 28.0},
-                      {'day': 'Sat', 'value': 27.5},
-                      {'day': 'Sun', 'value': 26.0},
-                    ],
-                  ),
+                  Obx(() {
+                    // Gunakan Obx untuk mendengarkan perubahan pada suhuHistory
+                    var suhuHistory = controller.suhuHistory;
+                    return suhuHistory.isEmpty
+                        ? CircularProgressIndicator() // Tampilkan loading jika data masih kosong
+                        : DynamicLineAreaChart(
+                            title: 'Temperature',
+                            yAxisTitle: 'Temperature (in °C)',
+                            chartData: suhuHistory.map((data) {
+                              // Konversi data ke format yang dibutuhkan oleh DynamicLineAreaChart
+                              return {
+                                'hour': data['hour'],
+                                'value': data['Suhu']
+                              };
+                            }).toList(),
+                          );
+                  }),
+                  Obx(() {
+                    // Gunakan Obx untuk mendengarkan perubahan pada suhuHistory
+                    var tekananHistory = controller.tekananHistory;
+                    return tekananHistory.isEmpty
+                        ? CircularProgressIndicator() // Tampilkan loading jika data masih kosong
+                        : DynamicLineAreaChart(
+                            title: 'Pressure',
+                            yAxisTitle: 'Pressure (in KPA)',
+                            chartData: tekananHistory.map((data) {
+                              // Konversi data ke format yang dibutuhkan oleh DynamicLineAreaChart
+                              return {
+                                'hour': data['hour'],
+                                'value': data['Tekanan']
+                              };
+                            }).toList(),
+                          );
+                  }),
+                  Obx(() {
+                    // Gunakan Obx untuk mendengarkan perubahan pada suhuHistory
+                    var phHistory = controller.phHistory;
+                    return phHistory.isEmpty
+                        ? CircularProgressIndicator() // Tampilkan loading jika data masih kosong
+                        : DynamicLineAreaChart(
+                            title: 'pH',
+                            yAxisTitle: 'pH',
+                            chartData: phHistory.map((data) {
+                              // Konversi data ke format yang dibutuhkan oleh DynamicLineAreaChart
+                              return {
+                                'hour': data['hour'],
+                                'value': data['PH']
+                              };
+                            }).toList(),
+                          );
+                  }),
+                  Obx(() {
+                    // Gunakan Obx untuk mendengarkan perubahan pada suhuHistory
+                    var gasHistory = controller.gasHistory;
+                    return gasHistory.isEmpty
+                        ? CircularProgressIndicator() // Tampilkan loading jika data masih kosong
+                        : DynamicLineAreaChart(
+                            title: 'pH',
+                            yAxisTitle: 'pH',
+                            chartData: gasHistory.map((data) {
+                              // Konversi data ke format yang dibutuhkan oleh DynamicLineAreaChart
+                              return {
+                                'hour': data['hour'],
+                                'value': data['Gas_Metana']
+                              };
+                            }).toList(),
+                          );
+                  }),
                 ],
               );
             } else {
@@ -265,7 +253,7 @@ class DynamicLineAreaChart extends StatelessWidget {
       series: <CartesianSeries<Map<String, dynamic>, String>>[
         LineSeries<Map<String, dynamic>, String>(
           dataSource: chartData,
-          xValueMapper: (Map<String, dynamic> data, _) => data['day']!,
+          xValueMapper: (Map<String, dynamic> data, _) => data['hour']!,
           yValueMapper: (Map<String, dynamic> data, _) => data['value'],
           markerSettings: const MarkerSettings(
             isVisible: true, // Menampilkan marker
@@ -279,7 +267,7 @@ class DynamicLineAreaChart extends StatelessWidget {
         ),
         AreaSeries<Map<String, dynamic>, String>(
           dataSource: chartData,
-          xValueMapper: (Map<String, dynamic> data, _) => data['day']!,
+          xValueMapper: (Map<String, dynamic> data, _) => data['hour']!,
           yValueMapper: (Map<String, dynamic> data, _) => data['value'],
           color: Colors.blue.withOpacity(0.3), // Warna biru dengan opacity 0.3
         ),
