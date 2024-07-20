@@ -15,6 +15,11 @@ class HomeController extends GetxController {
   var tekananHistory = [].obs;
   var phHistory = [].obs;
 
+  var isTemperatureChartVisible = false.obs;
+  var isPressureChartVisible = false.obs;
+  var isPhChartVisible = false.obs;
+  var isGasChartVisible = false.obs;
+
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 

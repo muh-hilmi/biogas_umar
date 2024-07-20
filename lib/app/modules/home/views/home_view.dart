@@ -185,8 +185,8 @@ class HomeView extends GetView<HomeController> {
                     return gasHistory.isEmpty
                         ? CircularProgressIndicator() // Tampilkan loading jika data masih kosong
                         : DynamicLineAreaChart(
-                            title: 'pH',
-                            yAxisTitle: 'pH',
+                            title: 'Gas',
+                            yAxisTitle: 'Gas',
                             chartData: gasHistory.map((data) {
                               // Konversi data ke format yang dibutuhkan oleh DynamicLineAreaChart
                               return {
