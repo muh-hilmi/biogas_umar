@@ -132,7 +132,7 @@ class HomeView extends GetView<HomeController> {
                     // Gunakan Obx untuk mendengarkan perubahan pada suhuHistory
                     var suhuHistory = controller.suhuHistory;
                     return suhuHistory.isEmpty
-                        ? CircularProgressIndicator() // Tampilkan loading jika data masih kosong
+                        ? const SizedBox(height: 200)
                         : DynamicLineAreaChart(
                             title: 'Temperature',
                             yAxisTitle: 'Temperature (in °C)',
@@ -149,7 +149,17 @@ class HomeView extends GetView<HomeController> {
                     // Gunakan Obx untuk mendengarkan perubahan pada suhuHistory
                     var tekananHistory = controller.tekananHistory;
                     return tekananHistory.isEmpty
-                        ? CircularProgressIndicator() // Tampilkan loading jika data masih kosong
+                        ? Column(
+                            children: [
+                              Text(
+                                "Tidak ada data history 😓",
+                                style: GoogleFonts.inter(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              )
+                            ],
+                          ) // Tampilkan loading jika data masih kosong
                         : DynamicLineAreaChart(
                             title: 'Pressure',
                             yAxisTitle: 'Pressure (in KPA)',
@@ -166,7 +176,7 @@ class HomeView extends GetView<HomeController> {
                     // Gunakan Obx untuk mendengarkan perubahan pada suhuHistory
                     var phHistory = controller.phHistory;
                     return phHistory.isEmpty
-                        ? CircularProgressIndicator() // Tampilkan loading jika data masih kosong
+                        ? const SizedBox(height: 200)
                         : DynamicLineAreaChart(
                             title: 'pH',
                             yAxisTitle: 'pH',
@@ -183,7 +193,7 @@ class HomeView extends GetView<HomeController> {
                     // Gunakan Obx untuk mendengarkan perubahan pada suhuHistory
                     var gasHistory = controller.gasHistory;
                     return gasHistory.isEmpty
-                        ? CircularProgressIndicator() // Tampilkan loading jika data masih kosong
+                        ? const SizedBox(height: 200)
                         : DynamicLineAreaChart(
                             title: 'Gas',
                             yAxisTitle: 'Gas',
@@ -200,7 +210,7 @@ class HomeView extends GetView<HomeController> {
               );
             } else {
               return const Center(
-                child: Text("Tidak dapat memuat data"),
+                child: Text("Tunggu sebentar..."),
               );
             }
           }),

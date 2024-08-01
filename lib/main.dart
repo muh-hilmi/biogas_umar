@@ -1,3 +1,4 @@
+import 'package:biogas_umar/app/services/notif_services.dart';
 import 'package:biogas_umar/app/views/views/splashscreen_view.dart';
 import 'package:biogas_umar/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,7 +13,7 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // FirebaseDatabase.instance.setPersistenceEnabled(true);
   // await NotificationService.initializeNotif();
-
+  await NotificationService.initializeNotif();
   runApp(MyApp());
 }
 

@@ -102,10 +102,10 @@ class HomeController extends GetxController {
         phHistory.sort((a, b) => a['hour'].compareTo(b['hour']));
         gasHistory.sort((a, b) => a['hour'].compareTo(b['hour']));
 
-        print("suhuHistory: $suhuHistory");
-        print("tekananHistory: $tekananHistory");
-        print("phHistory: $phHistory");
-        print("gasHistory: $gasHistory");
+        // print("suhuHistory: $suhuHistory");
+        // print("tekananHistory: $tekananHistory");
+        // print("phHistory: $phHistory");
+        // print("gasHistory: $gasHistory");
       }
     });
   }
